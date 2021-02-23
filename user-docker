@@ -1,0 +1,7 @@
+FROM openjdk:11
+
+COPY UserService-0.0.1-SNAPSHOT.jar /userDocker.jar
+
+CMD ["java", "-jar", "/userDocker.jar"]
+
+

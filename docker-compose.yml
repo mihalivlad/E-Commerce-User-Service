@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+   db:
+     image: mysql:latest
+     container_name: db-container
+     ports:
+       - 3308:3306
+     networks:
+      - user-network
+     environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=usermicroservicedb
+     healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+        interval: 10s
+        timeout: 30s
+        retries: 2
+   UserService:
+     image: user-docker
+     container_name: user-container
+     ports:
+       - 8084:8080
+     networks:
+      - user-network
+     depends_on:
+       db:
+          condition: service_healthy
+     restart: always
+networks:
+  user-network:
+
+
+
+
+
+
+
+
+
